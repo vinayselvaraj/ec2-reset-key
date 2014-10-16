@@ -164,7 +164,6 @@ runInstancesRequest.setInstanceType(recoveryInstanceType)
 runInstancesRequest.setMinCount(1)
 runInstancesRequest.setMaxCount(1)
 runInstancesRequest.setUserData(userDataBase64)
-runInstancesRequest.setKeyName("amazon") //TODO: REMOVE THIS
 runInstancesRequest.setPlacement(new Placement().withAvailabilityZone(availabilityZone))
 LOG.info("About to launch recovery instance ...")
 runInstancesResult = ec2Client.runInstances(runInstancesRequest)
@@ -193,9 +192,10 @@ if(!waitForInstanceToChangeState(ec2Client, recoveryInstanceId, "stopped", 10)) 
 
 // Detach target EBS volume from recovery instance
 detachEbsVolume(ec2Client, recoveryInstanceId, targetEbsVolumeId)
+LOG.info("Terminated recovery instance ${recoveryInstanceId}")
 
 // Terminate recovery instance
-// TODO
+ec2Client.terminateInstances(new TerminateInstancesRequest().withInstanceIds(recoveryInstanceId))
 
 // Attach target EBS volume back to target instance
 attachEbsVolume(ec2Client, instanceId, targetEbsVolumeId, targetRootDeviceName)

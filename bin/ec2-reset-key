@@ -1,0 +1,34 @@
+#!/bin/sh
+
+PRG="$0"
+
+while [ -h "$PRG" ]; do
+  ls=`ls -ld "$PRG"`
+  link=`expr "$ls" : '.*-> \(.*\)$'`
+  if expr "$link" : '/.*' > /dev/null; then
+    PRG="$link"
+  else
+    PRG=`dirname "$PRG"`/"$link"
+  fi
+done
+
+# Get standard environment variables
+PRGDIR=`dirname "$PRG"`
+
+PWD=`pwd`
+cd $PRGDIR/..
+BASE_DIR=`pwd`
+cd $PWD
+
+CP="$BASE_DIR/conf"
+CP="$CP:$BASE_DIR/src"
+
+for i in `ls $BASE_DIR/lib`
+do
+  CP="$CP:$BASE_DIR/lib/$i"
+done
+
+MAIN_SCRIPT=$BASE_DIR/src/Main.groovy
+
+#TODO: Test for existence of Java or JAVA_HOME
+java -cp $CP groovy.lang.GroovyShell $MAIN_SCRIPT $@

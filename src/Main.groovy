@@ -46,7 +46,7 @@ String       recoveryBlockDeviceName = "/dev/sdh"
 // Setup AMI region map
 def amiRegionMap = new HashMap()
 amiRegionMap.put("us-east-1"     , "ami-98aa1cf0")
-amiRegionMap.put("us-west-1"     , "ami-1b3b462b")
+amiRegionMap.put("us-west-1"     , "ami-d5ea86b5")
 amiRegionMap.put("us-west-2"     , "ami-a8d3d4ed")
 amiRegionMap.put("eu-west-1"     , "ami-f6b11181")
 amiRegionMap.put("ap-southeast-1", "ami-2ce7c07e")

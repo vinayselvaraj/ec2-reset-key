@@ -40,7 +40,7 @@ instanceId  = opts.i
 region      = opts.r
 
 // Default Configs
-InstanceType recoveryInstanceType    = InstanceType.T1Micro
+InstanceType recoveryInstanceType    = InstanceType.T2Micro
 String       recoveryBlockDeviceName = "/dev/sdh"
 
 // Setup AMI region map
